@@ -1,1 +1,252 @@
-readme
+flowchart TD
+    %% ========== START ==========
+    Start[CRM Process Start]
+    
+    Start --> P1A
+
+    %% ========== FIELD AGENT FLOW ==========
+    P1A[Field Visit and Product Demo]
+    P1A --> P1B
+    
+    P1B{Client Response?}
+    P1B -->|Interested Now| P1C
+    P1B -->|Interested Later| P1C
+    P1B -->|Not Interested| P1Z[End Process]
+    
+    P1C[Collect Client Details]
+    P1C --> P1D
+    
+    P1D[Submit Entry to CRM]
+    P1D --> P1E
+    
+    P1E[Create Lead in System]
+    P1E --> P1F
+    
+    P1F[Lead Status: NEW]
+    P1F --> P1G
+    
+    P1G{Client Ready for Onboarding?}
+    P1G -->|Yes| P1H
+    P1G -->|No| P2A
+    
+    P1H[Collect Retailer Details]
+    P1H --> P1I
+    
+    P1I[Submit Retailer Application]
+    P1I --> P1J
+    
+    P1J[Verify KYC Documents]
+    P1J --> P1K
+    
+    P1K[Create Retailer Account]
+    P1K --> P1L
+    
+    P1L[Retailer Status: ONBOARDED]
+    P1L --> P3A
+
+    %% ========== SALES SUPPORT FLOW ==========
+    P2A[Admin Reviews New Leads]
+    P2A --> P2B
+    
+    P2B[Admin Assigns to Sales Support]
+    P2B --> P2C
+    
+    P2C[Sales Support Contacts Client]
+    P2C --> P2D
+    
+    P2D[Update Status: CONTACTED]
+    P2D --> P2E
+    
+    P2E{Client Interest Level?}
+    P2E -->|Need More Time| P2F
+    P2E -->|Want Another Demo| P2H
+    P2E -->|Ready to Sign| P2J
+    P2E -->|Not Interested| P2L
+    P2E -->|Invalid Contact| P2N
+    
+    P2F[Schedule Follow-up Call]
+    P2F --> P2G
+    
+    P2G[Update Status: FOLLOWING UP]
+    P2G --> P2C
+    
+    P2H[Client Requests Another Demo]
+    P2H --> P2I
+    
+    P2I[Update Status: RE-DEMO REQUESTED]
+    P2I --> P1A
+    
+    P2J[Client Ready to Proceed]
+    P2J --> P2K
+    
+    P2K[Update Status: READY FOR ONBOARDING]
+    P2K --> P1H
+    
+    P2L[Client Not Interested]
+    P2L --> P2M
+    
+    P2M[Update Status: CLOSED]
+    
+    P2N[Invalid Contact Information]
+    P2N --> P2O
+    
+    P2O[Update Status: INVALID]
+
+    %% ========== SUPPORT TEAM FLOW ==========
+    P3A[Customer Contact Received]
+    P3A --> P3B
+    
+    P3B{Contact Channel?}
+    P3B -->|Phone Call| P3C
+    P3B -->|WhatsApp| P3D
+    
+    P3C[Voice Call - IVR System]
+    P3C --> P3E
+    
+    P3D[WhatsApp Business Chat]
+    P3D --> P3E
+    
+    P3E[Check Agent Availability]
+    P3E --> P3F
+    
+    P3F{Agents Available?}
+    P3F -->|No| P3G
+    P3F -->|Yes| P3I
+    
+    P3G[Place in Queue]
+    P3G --> P3H
+    
+    P3H[Play Queue Messages]
+    P3H --> P3I
+    
+    P3I[Assign to Available Agent]
+    P3I --> P3J
+    
+    P3J[Agent Greets Customer]
+    P3J --> P3K
+    
+    P3K{Customer Type?}
+    P3K -->|Existing Customer| P3L
+    P3K -->|New Inquiry| P3T
+    
+    P3L[Existing Customer Issue]
+    P3L --> P3M
+    
+    P3M[Verify Customer Identity]
+    P3M --> P3N
+    
+    P3N{Issue Type?}
+    P3N -->|Device Lock| P3O
+    P3N -->|Payment Issue| P3P
+    P3N -->|Technical Problem| P3Q
+    
+    P3O[Device Lock - EMI Due]
+    P3O --> P3R
+    
+    P3P[Payment Related Query]
+    P3P --> P3R
+    
+    P3Q[Technical Issue]
+    P3Q --> P3R
+    
+    P3R[Resolve Customer Issue]
+    P3R --> P3S
+    
+    P3S[Update Ticket Status: RESOLVED]
+    P3S --> P3A
+    
+    P3T[New Sales Inquiry]
+    P3T --> P3U
+    
+    P3U[Collect Basic Information]
+    P3U --> P3V
+    
+    P3V[Create New Lead in System]
+    P3V --> P3W
+    
+    P3W[Forward to Admin for Assignment]
+    P3W --> P2A
+
+    %% ========== DATA TRACKING ==========
+    P4A[All Calls Recorded]
+    P4B[Chat Conversations Logged]
+    P4C[Customer Interactions Tracked]
+    P4D[Lead Status Changes Logged]
+    P4E[Support Ticket History]
+    P4F[SLA Compliance Monitoring]
+    P4G[Performance Metrics]
+    P4H[Real-time Reports]
+    
+    P1C --> P4C
+    P1D --> P4D
+    P2C --> P4A
+    P2C --> P4C
+    P2C --> P4D
+    P3C --> P4A
+    P3D --> P4B
+    P3J --> P4C
+    P3R --> P4E
+    P3S --> P4F
+    
+    P4A --> P4G
+    P4B --> P4G
+    P4C --> P4G
+    P4D --> P4G
+    P4E --> P4G
+    P4F --> P4G
+    P4G --> P4H
+
+    %% ========== ADMIN DASHBOARD ==========
+    P5A[Monitor All Activities]
+    P5B[View Lead Pipeline]
+    P5C[Track Support Performance]
+    P5D[Manage User Accounts]
+    P5E[Assign Leads to Teams]
+    P5F[Access Call Recordings]
+    P5G[Review Chat Logs]
+    P5H[Generate Reports]
+    P5I[Monitor SLA Compliance]
+    P5J[System Configuration]
+    
+    P4H --> P5A
+    
+    P5A --> P5B
+    P5A --> P5C
+    P5A --> P5D
+    P5A --> P5F
+    P5A --> P5G
+    P5A --> P5H
+    P5A --> P5I
+    P5A --> P5J
+    
+    P5B --> P5E
+    P5C --> P5I
+    
+    P5E --> P2B
+    P5D --> P1A
+    P5D --> P2C
+    P5D --> P3I
+
+    %% ========== STYLING ==========
+    classDef fieldClass fill:#E8F5E8,stroke:#2E7D32,stroke-width:2px
+    classDef salesClass fill:#FFF3E0,stroke:#E65100,stroke-width:2px
+    classDef supportClass fill:#FCE4EC,stroke:#880E4F,stroke-width:2px
+    classDef adminClass fill:#E3F2FD,stroke:#1565C0,stroke-width:2px
+    classDef dataClass fill:#FFF9C4,stroke:#F57F17,stroke-width:2px
+    classDef decisionClass fill:#E1BEE7,stroke:#7B1FA2,stroke-width:2px
+    
+    class P1A,P1C,P1D,P1E,P1H,P1I,P1J,P1K fieldClass
+    class P1B,P1G decisionClass
+    class P1F,P1L dataClass
+    
+    class P2A,P2B,P2C,P2F,P2H,P2J,P2L,P2N salesClass
+    class P2E decisionClass
+    class P2D,P2G,P2I,P2K,P2M,P2O dataClass
+    
+    class P3A,P3C,P3D,P3J,P3L,P3M,P3O,P3P,P3Q,P3R,P3T,P3U,P3V,P3W supportClass
+    class P3B,P3F,P3K,P3N decisionClass
+    class P3E,P3G,P3H,P3I,P3S dataClass
+    
+    class P4A,P4B,P4C,P4D,P4E,P4F,P4G,P4H dataClass
+    
+    class P5A,P5B,P5C,P5D,P5E,P5F,P5G,P5H,P5I,P5J adminClass
